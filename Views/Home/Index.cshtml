@@ -1,0 +1,129 @@
+﻿@model List<Books>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Welcome To the Library</h1>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Create">Add New Book</a>
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Description</th>
+            <th>IMG</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+    @foreach(var books in Model)
+    {
+        <tr>
+            <td>@books.Title</td>
+            <td>@books.Author</td>
+            <td>@books.Genre</td>
+            <td>@books.Description</td>
+                <td>
+                        <img style="width:100px;height:100px;" src="/books/@books.ImgFileName"/>
+                </td>
+                       
+                <td>
+                    <button class="btn btn-warning"
+                            onclick="openEditModal(
+                            @books.Id,
+                            '@books.Title',
+                            '@books.Author',
+                            '@books.Genre',
+                            '@books.Description',
+                            '@books.ImgFileName'
+                            )">
+                        Edit
+                    </button>
+                    <form asp-action="Delete" asp-controller="Home" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@books.Id" />
+                        <button type="submit" class="badge bg-danger border-0"
+                                onclick="return confirm('Are you sure?');">
+                            Delete
+                        </button>
+                    </form>
+
+                </td>
+        </tr>
+         
+    }
+        </tbody>
+</table>
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form asp-action="Edit" asp-controller="Home" method="post" enctype="multipart/form-data">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Book</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden"  name="Id" id="editId" />
+
+                    <input type="text" placeholder="Title" name="Title" id="editTitle" class="form-control mb-2" />
+
+                    <input type="text" placeholder="Author" name="Author" id="editAuthor" class="form-control mb-2" />
+
+                    <input type="text" placeholder="Genre" name="Genre" id="editGenre" class="form-control mb-2" />
+
+                    <textarea name="Description" id="editDescription" class="form-control mb-2"></textarea>
+
+                    <input type="file" name="ImgFile" class="form-control" />
+                    <div>
+                        <div class="text-center mb-2">
+                            <img id="editCurrentImage"
+                                 src=""
+                                 style="width:150px;height:150px;object-fit:cover;border-radius:6px; display:none;" />
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function openEditModal(id, title, author, genre, description, ImgFileName) {
+
+        document.getElementById('editId').value = id;
+        document.getElementById('editTitle').value = title;
+        document.getElementById('editAuthor').value = author;
+        document.getElementById('editGenre').value = genre;
+        document.getElementById('editDescription').value = description;
+
+         const image = document.getElementById("editCurrentImage");
+
+          if (ImgFileName && ImgFileName !== "") {
+        image.src = "/books/" + ImgFileName;
+        image.style.display = "block";
+    } else {
+        image.style.display = "none";
+    }
+
+
+        var modal = new bootstrap.Modal(document.getElementById('editModal'));
+        modal.show();
+    }
+</script>

@@ -1,0 +1,49 @@
+﻿@model Books
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form method="post" enctype="multipart/form-data">
+    
+    <div class="form-group my-2">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" class="form-control" required />
+        <span asp-validation-for="Title" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group my-2">
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="Author" class="form-control" required />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group my-2">
+        <label for="genre">Genre:</label>
+        <input type="text" id="Genre" name="Genre" class="form-control" />
+        <span asp-validation-for="Genre" class="text-danger"></span>
+
+    </div>
+
+
+    <div class="form-group my-2">
+        <label for="genre">Description:</label>
+        <input type="text" id="Description" name="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group my-2">
+        <label asp-for="ImgFile">Upload Book Image</label>
+
+        <input asp-for="ImgFile" type="file" class="form-control" />
+
+        <span asp-validation-for="ImgFile" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary my-2">Upload Book</button>
+</form>
+
+

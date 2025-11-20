@@ -1,0 +1,49 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+.vSCode/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node modules (if using frontend tools)
+node_modules/
+
+# Environment files
+appsettings.Development.json
+.env
+
+# Migration cache
+Migrations/*.Designer.cs
+
+# Publish files
+publish/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+project.lock.json
+
+# SQL server db
+*.mdf
+*.ldf
+
+# Private config
+secrets.json
